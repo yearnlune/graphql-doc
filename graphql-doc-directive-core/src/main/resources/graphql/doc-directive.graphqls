@@ -1,0 +1,3 @@
+directive @intOrigin(value: Int) on ENUM_VALUE
+directive @stringOrigin(value: String) on ENUM_VALUE
+directive @default(value: String) on INPUT_FIELD_DEFINITION

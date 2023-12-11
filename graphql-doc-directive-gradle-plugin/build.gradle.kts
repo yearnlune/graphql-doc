@@ -11,13 +11,13 @@ tasks {
 }
 
 gradlePlugin {
-    website.set("https://github.com/yearnlune/graphql-doc-directive")
-    vcsUrl.set("https://github.com/yearnlune/graphql-doc-directive")
+    website.set("https://github.com/yearnlune/graphql-doc")
+    vcsUrl.set("https://github.com/yearnlune/graphql-doc")
 
     plugins {
         create("GraphqlDocPlugin") {
-            id = "io.github.yearnlune.graphql.doc.plugin"
-            implementationClass = "io.github.yearnlune.graphql.doc.plugin.GraphqlDocPlugin"
+            id = "io.github.yearnlune.graphql.doc.directive.plugin"
+            implementationClass = "io.github.yearnlune.graphql.doc.directive.plugin.GraphqlDocDirectivePlugin"
             displayName = "Graphql document directive plugin"
             description = "Gradle plugin to graphql doc"
             tags.set(listOf("graphql", "document", "directive"))

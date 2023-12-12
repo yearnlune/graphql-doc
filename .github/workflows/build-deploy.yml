@@ -29,6 +29,7 @@ jobs:
     name: Publish directive
     runs-on: ubuntu-latest
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    needs: java-build
     steps:
       - uses: actions/checkout@v3
       - uses: actions/download-artifact@v3
@@ -56,6 +57,7 @@ jobs:
     name: Publish plugin
     runs-on: ubuntu-latest
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    needs: java-build
     steps:
       - uses: actions/checkout@v3
       - uses: actions/download-artifact@v3
@@ -72,7 +74,7 @@ jobs:
       - id: changed-files
         uses: tj-actions/changed-files@v40
         with:
-          files: graphql-doc-directive-gradle-plugㅡin/**
+          files: graphql-doc-directive-gradle-plugin/**
       - name: Publish plugin
         if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
         env:

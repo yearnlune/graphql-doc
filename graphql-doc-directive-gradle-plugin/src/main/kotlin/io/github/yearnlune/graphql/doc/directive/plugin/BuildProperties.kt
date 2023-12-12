@@ -1,7 +1,6 @@
 package io.github.yearnlune.graphql.doc.directive.plugin
 
 object BuildProperties {
-
     const val INTERFACE_NAME = "graphql-doc-directive-core"
 
     const val EXTRACT_GRAPHQL_DOC_DIRECTIVE_TASK = "extractGraphqlDocDirective"

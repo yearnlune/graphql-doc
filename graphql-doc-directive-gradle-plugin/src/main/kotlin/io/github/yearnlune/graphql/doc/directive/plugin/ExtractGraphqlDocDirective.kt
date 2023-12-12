@@ -8,7 +8,6 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 
 open class ExtractGraphqlDocDirective : CommonTask() {
-
     @TaskAction
     fun execute() {
         getImplementationFileTree()
@@ -23,7 +22,10 @@ open class ExtractGraphqlDocDirective : CommonTask() {
         return super.getProject().configurations.getByName("implementation").asFileTree
     }
 
-    private fun unzipTo(outputDirectory: File, zipFile: File) {
+    private fun unzipTo(
+        outputDirectory: File,
+        zipFile: File,
+    ) {
         return ZipFile(zipFile).use { zip ->
             for (entry in zip.entries()) {
                 unzipEntryTo(outputDirectory, zip, entry)
@@ -31,7 +33,11 @@ open class ExtractGraphqlDocDirective : CommonTask() {
         }
     }
 
-    private fun unzipEntryTo(outputDirectory: File, zip: ZipFile, entry: ZipEntry) {
+    private fun unzipEntryTo(
+        outputDirectory: File,
+        zip: ZipFile,
+        entry: ZipEntry,
+    ) {
         val output = outputDirectory.resolve(entry.name)
         if (entry.isDirectory) {
             output.mkdirs()

@@ -13,7 +13,6 @@ import java.io.File
 import java.nio.file.Paths
 
 class GraphqlDocDirectivePlugin : Plugin<Project> {
-
     override fun apply(target: Project) {
         registerTasks(target)
 

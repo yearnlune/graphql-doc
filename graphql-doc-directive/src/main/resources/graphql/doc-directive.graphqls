@@ -16,4 +16,4 @@ directive @default(value: String) on INPUT_FIELD_DEFINITION
 """
 Group documents by category.
 """
-directive @group(category: String) on FIELD_DEFINITION
+directive @group(category: String) on FIELD_DEFINITION | OBJECT | INPUT_OBJECT | ENUM

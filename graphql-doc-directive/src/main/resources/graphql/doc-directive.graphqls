@@ -1,3 +1,19 @@
+"""
+This is used to specify that the value of an enum should be represented as a number.
+"""
 directive @intOrigin(value: Int) on ENUM_VALUE
+
+"""
+This is used to specify that the value of an enum should be represented as a string.
+"""
 directive @stringOrigin(value: String) on ENUM_VALUE
+
+"""
+This is used to specify the default value of an input field.
+"""
 directive @default(value: String) on INPUT_FIELD_DEFINITION
+
+"""
+Group documents by category.
+"""
+directive @group(category: String) on FIELD_DEFINITION

@@ -5,7 +5,7 @@
 
 ```kotlin
 plugins {
-    id("io.github.yearnlune.graphql.doc.directive.plugin") version "0.0.2"
+    id("io.github.yearnlune.graphql.doc.directive.plugin") version "0.0.3"
 }
 
 configurations {

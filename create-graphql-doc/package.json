@@ -12,6 +12,7 @@
     "url": "https://github.com/yearnlune/graphql-doc/issues"
   },
   "bin": "bin/index.js",
+  "author": "DONGHWAN KIM",
   "scripts": {
     "create-graphql-doc": "create-graphql-doc",
     "build": "tsc --build",

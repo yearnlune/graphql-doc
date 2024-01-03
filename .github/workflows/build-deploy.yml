@@ -37,6 +37,7 @@ jobs:
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
+      - run: yarn set version 3.2.0
       - name: Yarn build
         run: yarn install --immutable && yarn build
       - uses: actions/upload-artifact@v3
@@ -121,4 +122,4 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish package
-        run: yarn publish --access=public
+        run: yarn npm publish --access=public

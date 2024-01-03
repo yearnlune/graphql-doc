@@ -110,6 +110,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: create-graphql-doc artifacts
+          path: create-graphql/lib
       - uses: actions/setup-node@v4
         with:
           node-version: 20

@@ -121,4 +121,4 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish package
-        run: yarn npm publish --access=public
+        run: yarn publish --access=public

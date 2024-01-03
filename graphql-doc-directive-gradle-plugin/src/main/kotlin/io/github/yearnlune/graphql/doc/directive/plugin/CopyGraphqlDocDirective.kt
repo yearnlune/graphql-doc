@@ -24,7 +24,12 @@ open class CopyGraphqlDocDirective : CommonTask() {
         }
     }
 
-    private fun makeOutputResourcesDirectory(): File = File(getAbsoluteBuildPath(OUTPUT_GRAPHQL_RESOURCE_DIRECTORY)).also { it.mkdirs() }
+    private fun makeOutputResourcesDirectory(): File =
+        File(
+            getAbsoluteBuildPath(OUTPUT_GRAPHQL_RESOURCE_DIRECTORY),
+        ).also {
+            it.mkdirs()
+        }
 
     private fun removeDirectory(directory: File) = directory.deleteRecursively()
 }

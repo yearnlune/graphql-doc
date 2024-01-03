@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 
 const packageJsonFile = 'package.json'
 const arg = process.argv[2]

@@ -114,6 +114,7 @@ jobs:
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
+      - run: corepack enable && yarn set version 3.2.0
       - id: tag
         run: echo ::set-output name=tag::$(echo ${GITHUB_REF:11})
       - run: node .ci/set-version ${{ steps.tag.outputs.tag }}

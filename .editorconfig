@@ -1,0 +1,28 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+tab_width = 4
+insert_final_newline = true
+max_line_length = 120
+ij_continuation_indent_size = 8
+
+[{*.kt,*.kts}]
+insert_final_newline = false
+ij_kotlin_name_count_to_use_star_import = 999
+ij_kotlin_name_count_to_use_star_import_for_members = 999
+ij_kotlin_packages_to_use_import_on_demand = kotlinx.android.synthetic.**, io.ktor.**
+
+[{*.yaml,*.yml}]
+indent_size = 2
+
+[*.{js,jsx,ts,tsx,vue}]
+indent_size = 2
+max_line_length = 80
+trim_trailing_whitespace = true
+
+[*.json]
+indent_size = 2

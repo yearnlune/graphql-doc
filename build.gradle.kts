@@ -17,7 +17,7 @@ plugins {
 
 allprojects {
     group = "io.github.yearnlune.graphql.doc"
-    version = gradle.extra["getGitTag"] as String
+    version = getVersionFromGit()
 
     repositories {
         mavenCentral()
@@ -102,6 +102,29 @@ subprojects {
                     }
                 }
             }
+        }
+    }
+}
+
+fun getVersionFromGit(): String {
+    return runCatching {
+        val version = (
+                System.getenv("CI_COMMIT_TAG")
+                    ?.takeIf { it.isNotEmpty() }
+                    ?: ProcessBuilder(listOf("git", "describe", "--tags")).start().inputStream.bufferedReader().readText()
+                        .split("\n")[0]
+                )
+            .trim()
+        if (version.startsWith("v")) {
+            version.substring(1)
+        } else version
+    }.getOrElse {
+        return runCatching {
+            return ProcessBuilder(listOf("git", "rev-parse", "HEAD")).start().inputStream.bufferedReader().readText()
+                .trim()
+                .split("\n")[0].trim() + "-SNAPSHOT"
+        }.getOrElse {
+            return "unknown"
         }
     }
 }

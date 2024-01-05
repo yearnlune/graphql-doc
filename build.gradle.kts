@@ -17,7 +17,7 @@ plugins {
 
 allprojects {
     group = "io.github.yearnlune.graphql.doc"
-    version = "0.0.3"
+    version = gradle.extra["getGitTag"] as String
 
     repositories {
         mavenCentral()

@@ -12,7 +12,7 @@ rootProject.name = "graphql-doc"
 include("graphql-doc-directive")
 include("graphql-doc-directive-gradle-plugin")
 
-val isWindows = System.getProperty("os.name").toString().lowercase().contains("windows")
+val isWindows = !System.getProperty("os.name").toString().lowercase().contains("windows")
 val executor = if (isWindows) "cmd" else "/bin/sh"
 
 val getGitTag = { ->
@@ -22,8 +22,7 @@ val getGitTag = { ->
     runCatching {
         if (tag == null) {
             exec {
-                executable(executor)
-                commandLine("git", "describe", "--tags")
+                commandLine(executor, "git", "describe", "--tags")
                 standardOutput = stdout
                 errorOutput = stderr
             }
@@ -38,8 +37,7 @@ val getGitTag = { ->
         println(it.localizedMessage)
         it.printStackTrace()
         exec {
-            executable(executor)
-            commandLine("git", "describe", "--tags")
+            commandLine(executor, "git", "describe", "--tags")
             standardOutput = stdout
             errorOutput = stderr
         }

@@ -16,18 +16,30 @@ val getGitTag = { ->
     val stdout = ByteArrayOutputStream()
     val stderr = ByteArrayOutputStream()
     var tag = System.getenv("CI_COMMIT_TAG")
-    if (tag == null) {
+    runCatching {
+        if (tag == null) {
+            exec {
+                commandLine("git", "describe", "--tags")
+                standardOutput = stdout
+                errorOutput = stderr
+            }
+            tag = stdout.toString(Charset.defaultCharset()).split("\n")[0].trim()
+        }
+        if (tag.startsWith("v")) {
+            tag = tag.substring(1)
+        }
+    }.onSuccess {
+        tag
+    }.onFailure {
+        println(it.localizedMessage)
+        it.printStackTrace()
         exec {
-            commandLine("git", "describe", "--tags", "--exact-match")
+            commandLine("git", "describe", "--tags")
             standardOutput = stdout
             errorOutput = stderr
         }
         tag = stdout.toString(Charset.defaultCharset()).split("\n")[0].trim()
     }
-    if (tag.startsWith("v")) {
-        tag = tag.substring(1)
-    }
-    tag
 }
 
-gradle.extra["getGitTag"] = getGitTag.invoke()
+gradle.extra["getGitTag"] = getGitTag()

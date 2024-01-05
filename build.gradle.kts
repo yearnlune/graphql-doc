@@ -15,9 +15,11 @@ plugins {
     kotlin("jvm") version "1.7.0"
 }
 
+val calculatedVersion = getVersionFromGit()
+
 allprojects {
     group = "io.github.yearnlune.graphql.doc"
-    version = getVersionFromGit()
+    version = calculatedVersion
 
     repositories {
         mavenCentral()
@@ -119,7 +121,7 @@ fun getVersionFromGit(): String {
             version.substring(1)
         } else version
     }.getOrElse {
-        return runCatching {
+        runCatching {
             return ProcessBuilder(listOf("git", "rev-parse", "HEAD")).start().inputStream.bufferedReader().readText()
                 .trim()
                 .split("\n")[0].trim() + "-SNAPSHOT"

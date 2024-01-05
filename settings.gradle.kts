@@ -19,7 +19,7 @@ val getGitTag = { ->
     runCatching {
         if (tag == null) {
             exec {
-                commandLine("git", "describe", "--tags")
+                commandLine("cmd", "git", "describe", "--tags")
                 standardOutput = stdout
                 errorOutput = stderr
             }
@@ -34,7 +34,7 @@ val getGitTag = { ->
         println(it.localizedMessage)
         it.printStackTrace()
         exec {
-            commandLine("git", "describe", "--tags")
+            commandLine("cmd", "git", "describe", "--tags")
             standardOutput = stdout
             errorOutput = stderr
         }

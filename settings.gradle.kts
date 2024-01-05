@@ -12,7 +12,7 @@ rootProject.name = "graphql-doc"
 include("graphql-doc-directive")
 include("graphql-doc-directive-gradle-plugin")
 
-val isWindows = !System.getProperty("os.name").toString().lowercase().contains("windows")
+val isWindows = System.getProperty("os.name").toString().lowercase().contains("windows")
 val executor = if (isWindows) "cmd" else "/bin/sh"
 
 val getGitTag = { ->

@@ -1,6 +1,5 @@
 name: build & deploy
 on:
-  push:
   pull_request:
 jobs:
   java-build:

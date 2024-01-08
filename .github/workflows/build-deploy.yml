@@ -1,6 +1,9 @@
 name: build & deploy
 on:
   pull_request:
+  push:
+    tags:
+      - 'v*'
 jobs:
   java-build:
     name: Build java

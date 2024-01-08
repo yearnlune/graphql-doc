@@ -1,7 +1,9 @@
 name: build & deploy
 on:
-  push:
   pull_request:
+  push:
+    tags:
+      - 'v*'
 jobs:
   java-build:
     name: Build java
@@ -61,8 +63,11 @@ jobs:
       - uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.2
+      - id: tag
+        run: echo ::set-output name=tag::$(echo ${GITHUB_REF:11})
       - name: Publish libraries
         env:
+          CI_COMMIT_TAG: ${{ steps.tag.outputs.tag }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
           ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
@@ -91,9 +96,12 @@ jobs:
         uses: tj-actions/changed-files@v40
         with:
           files: graphql-doc-directive-gradle-plugin/**
+      - id: tag
+        run: echo ::set-output name=tag::$(echo ${GITHUB_REF:11})
       - name: Publish plugin
         if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
         env:
+          CI_COMMIT_TAG: ${{ steps.tag.outputs.tag }}
           GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
           GRADLE_PUBLISH_SECRET: ${{ secrets.GRADLE_PUBLISH_SECRET }}
         run: gradle graphql-doc-directive-gradle-plugin:publishPlugins

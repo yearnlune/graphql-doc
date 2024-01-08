@@ -1,31 +1,4 @@
-# GraphQL Doc
-> Easily create Graphql documentation
-
-## Installation
-
-### Fetch template
-
-```shell
-npx @yearnlune/create-graphql-doc
-```
-
-### Added GraphQL directives
-
-```kotlin
-plugins {
-    id("io.github.yearnlune.graphql.doc.directive.plugin") version "0.0.6"
-}
-
-configurations {
-    implementation {
-        isCanBeResolved = true
-    }
-}
-
-dependencies {
-    implementation("io.github.yearnlune.graphql.doc:graphql-doc-directive:0.0.6")
-}
-```
+# GraphQL Doc Directive
 
 ## Directives
 

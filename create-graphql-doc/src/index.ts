@@ -7,12 +7,20 @@ import logger from '@docusaurus/logger';
 export default async function init(
         directory: string,
 ): Promise<void> {
-  const docPath = await getDocPath();
-  const dest = path.resolve(directory, docPath);
-  const graphqlPaths = (await getGraphqlPaths()).map(v => calculateRelativePath(directory, docPath, v));
-  await getGraphqlDocTemplate(dest);
-  await updateSchemaPath(path.join(dest, 'docusaurus.config.ts'), graphqlPaths);
-  logger.success`Created graphql doc=${dest}.`;
+  logger.info(`Create GraphQL Documents 👋`)
+  logger.info(`💡Please enter the relative path`)
+  logger.info(`ex) root/home/sample`)
+  try {
+    const docPath = await getDocPath();
+    const dest = path.resolve(directory, docPath);
+    const graphqlPaths = (await getGraphqlPaths()).map(v => calculateRelativePath(directory, docPath, v));
+    await getGraphqlDocTemplate(dest);
+    await updateSchemaPath(path.join(dest, 'docusaurus.config.ts'), graphqlPaths);
+    logger.success(`Created GraphGL documents: ${dest}.`);
+  } catch (e) {
+    logger.error(e.message)
+    process.exit(1)
+  }
 }
 
 async function getDocPath(): Promise<string> {
@@ -54,7 +62,7 @@ async function getGraphqlPath(): Promise<string> {
           {
             type: 'text',
             name: 'graphqlPath',
-            message: 'Where is the Graphql directory? (Relative path)',
+            message: 'Where is the GraphQL directory?',
             initial: 'src/main/resources',
             validate: async (dir: string) => {
               if (!isRelativePath(dir)) {
@@ -77,7 +85,7 @@ async function isContinue(): Promise<boolean> {
           {
             type: 'toggle',
             name: 'isContinue',
-            message: 'Do you want to continue?',
+            message: 'Do you want to continue writing?',
             active: 'yes',
             inactive: 'no',
             initial: true,
@@ -93,6 +101,11 @@ async function isContinue(): Promise<boolean> {
 
 async function updateSchemaPath(path: string, graphqlPaths: string[]) {
   const docusaurusConfig = (fs.readFileSync(path, 'utf-8'));
+
+  if (!docusaurusConfig) {
+    throw Error("Failed to read docusaurus.config.ts")
+  }
+
   await fs.outputFile(
           path,
           docusaurusConfig.replace(
@@ -103,7 +116,9 @@ async function updateSchemaPath(path: string, graphqlPaths: string[]) {
 }
 
 async function getGraphqlDocTemplate(dest: string) {
-  shell.exec(`git clone --recursive --depth 1 https://github.com/yearnlune/graphql-doc-template.git ${dest}`);
+  if (shell.exec(`git clone --recursive --depth 1 https://github.com/yearnlune/graphql-doc-template.git ${dest}`).code != 0) {
+    throw Error("Failed to import template using git")
+  }
   await fs.remove(path.join(dest, '.git'));
 }
 
